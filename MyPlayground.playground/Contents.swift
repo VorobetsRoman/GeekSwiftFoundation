@@ -1,12 +1,15 @@
 import Cocoa
-//1. Описать несоклько структур - любой легковой автомобиль и любой грузовик
-//2. Структуры должны содеражть марку авто, год выпуска, объем багажника/кузова, состояние запущен ли двигатель, открыты ли окна? заполненный объем багажника.
 
+// 1. Описать класс Car c общими свойствами автомобилей и пустым методом действия.
+// 2. Описать пару его наследников tunkCar и sportСar. Описать в них свойства, отличающиеся для спортивного автомобиля и цистерны.
+// 3. В каждом подклассе реализовать метод действия с автомобилем в соответствии с его классом.
+// 4. Создать несколько объектов каждого класса. Применить к ним различные действия.
+// 5. Вывести значения свойств экземпляров в консоль.
 enum BodyType {
     case Truck, Limo, Seddan, Suv
 }
 
-struct Car {
+class Car {
     var brand: String
     var manufactured: Int
     var truncSize: Float
@@ -21,13 +24,23 @@ struct Car {
         self.manufactured = _manufactured
         self.truncSize = _truncSize
     }
-    mutating func setEngineOn(setOn: Bool) {
+    func setEngineOn(setOn: Bool){
+    }
+}
+
+class TruncCar: Car {
+    var
+}
+class SportCar: Car {
+        
+}
+    func setEngineOn(setOn: Bool) {
         engineIsOn = setOn
     }
-    mutating func setWindowsOpen(setOpen: Bool) {
+    func setWindowsOpen(setOpen: Bool) {
         windowsAreOpen = setOpen
     }
-    mutating func addCargo(cargoSize: Float) -> Bool {
+    func addCargo(cargoSize: Float) -> Bool {
         let cargo = cargoSize + truncsFilling
         if cargo > truncSize {
             return false
@@ -43,8 +56,4 @@ neighbours.setEngineOn(setOn: true)
 print(neighbours.engineIsOn)
 print(neighbours.enginePower)
 
-//3. Описать перечисление с возможными действиями с автомобилем - запустить/заглушить двигатель, открыть/закрыть окна, погрузить/выгрузить из кузова/багажника груз определенного объема.
-//4. Добавить в структуры метод с одним аргументом типа перечисления, который будет менять свойства структуры в зависимости от действия.
-//5. Инициализировать несколько экземпляров структур. Применить к ним различные действия.
-//6. Вывести значения свойств экземпляров в консоль.
 var str = "Hello, playground"
