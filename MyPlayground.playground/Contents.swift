@@ -7,11 +7,11 @@ enum BodyType {
 }
 
 struct Car {
-    var brand: String
-    var manufactured: Int
-    var truncSize: Float
-    var enginePower: Int = 270
-    var bodyType: BodyType = .Suv
+    let brand: String
+    let manufactured: Int
+    let truncSize: Float
+    let enginePower: Int = 270
+    let bodyType: BodyType = .Suv
     var windowsAreOpen: Bool = false
     var truncsFilling: Float = 0 ///< Наполнение
     var engineIsOn: Bool = false
@@ -42,6 +42,25 @@ var neighbours = Car(_brand: "Porsche", _manufactured: 2017, _truncSize: 300)
 neighbours.setEngineOn(setOn: true)
 print(neighbours.engineIsOn)
 print(neighbours.enginePower)
+
+struct Truck {
+    let brand: String
+    let manufactured: Int
+    let truncSize: Float
+    let enginePower: Int = 270
+    let bodyType: BodyType = .Truck
+    var windowsAreOpen: Bool = false
+    var truncsFilling: Float = 0 ///< Наполнение
+    var engineIsOn: Bool = false
+    mutating func setEngineOn(setOn: Bool) {
+        engineIsOn = setOn
+    }
+}
+
+var nneighbours = Truck(brand: "Камаз", manufactured: 2007, truncSize: 6000)
+nneighbours.setEngineOn(setOn: true)
+print(nneighbours.engineIsOn)
+print(nneighbours.enginePower)
 
 //3. Описать перечисление с возможными действиями с автомобилем - запустить/заглушить двигатель, открыть/закрыть окна, погрузить/выгрузить из кузова/багажника груз определенного объема.
 //4. Добавить в структуры метод с одним аргументом типа перечисления, который будет менять свойства структуры в зависимости от действия.
