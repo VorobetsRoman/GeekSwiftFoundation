@@ -18,6 +18,7 @@ class Car {
     var windowsAreOpen: Bool = false
     var truncsFilling: Float = 0 ///< Наполнение
     var engineIsOn: Bool = false
+    weak var driver: Driver? = nil
     
     init( _brand: String, _manufactured: Int, _truncSize: Float ) {
         self.brand = _brand
@@ -28,13 +29,20 @@ class Car {
     }
 }
 
+class Driver {
+    var name: String
+    var car: Car? = nil
+    init( name: String) {
+        self.name = name
+    }
+}
+
 class TruncCar: Car {
-    var
+    
 }
 class SportCar: Car {
         
-}
-    func setEngineOn(setOn: Bool) {
+    override func setEngineOn(setOn: Bool) {
         engineIsOn = setOn
     }
     func setWindowsOpen(setOpen: Bool) {
@@ -55,5 +63,37 @@ var neighbours = Car(_brand: "Porsche", _manufactured: 2017, _truncSize: 300)
 neighbours.setEngineOn(setOn: true)
 print(neighbours.engineIsOn)
 print(neighbours.enginePower)
+
+class A {
+    static var val: Int = 0
+    init() {
+        A.val += 1
+        print("init", A.val)
+    }
+    deinit {
+        A.val -= 1
+        print("deinit", A.val)
+    }
+    var ptr_b: B?
+}
+
+class B {
+    init(){}
+    weak var a: A?
+    var aa: A?
+}
+
+var a: A? = A()
+var b: B? = B()
+b?.a = a
+var aa: A? = A()
+b?.aa = aa
+a = nil
+print("pointer to a deleted")
+aa = nil
+print("pointer to aa still exists")
+b = nil
+print("pointer to aa deleted")
+
 
 var str = "Hello, playground"
