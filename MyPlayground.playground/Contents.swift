@@ -1,100 +1,47 @@
 import Cocoa
 
-//1. Написать функцию, которая определяет, четное число или нет
+//1. Создать протокол Car и описать свойства, общие для автомобилей, а также метод действия.
 
-func isOdd(val: Int) -> Bool {
-    if (val % 2 > 0) {
-        return false
-    } else {
-        return true
+protocol Car {
+    var truncSize: Float {get set}
+    func checkCargo(cargoSize: Float)
+}
+//2. Создать расширения для протокола Car и реализовать в нем методы конкретных действий с автомобилем - открыть/закрыть окно, запустить/заглушить двигатель и т.д. По одному методу на действие, реализовывать следует только те действия, реализация которых общая для всех автомобилей.
+extension Car {
+    func checkCargo(cargoSize: Float) {
+        if cargoSize > truncSize {
+            print("fuck")
+        } else {
+            print("yeah")
+        }
     }
 }
-
-let odd = isOdd(val: 4)
-let notOdd = isOdd(val: 5)
-//2. Написать функцию, которая определяет, делится ли число без остатка на 3
-
-func isDividedBy_3(val: Int) -> Bool {
-    if (val % 3 > 0) {
-        return false
-    } else {
-        return true
+//3. Создать два класса, имплементирующих протокол Car - tunkCar и sportСar. Описать в них свойства, отличающиеся для спортивного автомобиля и цистерны.
+class TrunkCar: Car {
+    var truncCapacity: Float = 300.0
+    var cargoSize: Float = 0.0
+    var truncSize: Float {
+        get {
+            return truncCapacity - cargoSize
+        } set {
+            cargoSize = truncCapacity - newValue
+        }
     }
+    
+    init (){}
 }
-
-let isTrue = isDividedBy_3(val: 27)
-let isFalse = isDividedBy_3(val: 41)
-//3. Создать возрастающий массив из 100 чисел
-// Удалить из массива все четные числа и все числа, которые не делятся на 3
-
-func createArray(size: Int) -> [Int] {
-    var arr:[Int] = []
-    for val in 1...size {
-        arr.append(val)
-    }
-    return arr
+//4. Для каждого класса написать расширение, имплементирующее протокол CustomStringConvertible.
+class PrintCar: TrunkCar, CustomStringConvertible {
+    var description: String = "TruncCar"
+    
 }
+//5. Создать несколько объектов каждого класса. Применить к ним различные действия.
+var trunk:TrunkCar = TrunkCar()
+trunk.checkCargo(cargoSize: 50)
+var printable: PrintCar = PrintCar()
+print(printable)
+//6. Вывести сами объекты в консоль.
 
-func removeOddAnd_3(_arr: [Int]) -> [Int] {
-    var arr = [Int]()
-    for val in _arr where !isOdd(val: val) && !isDividedBy_3(val: val) {
-        arr.append(val)
-    }
-    return arr
-}
 
-let arr = createArray(size: 100)
-let resultArr = removeOddAnd_3(_arr: arr)
-//4. Написать функцию, которая добавляет в массив новое число Фибоначчи и добавить при помощи нее 100 элементов (Fn = Fn1-1 + Fn-2)
 
 var str = "Hello, playground"
-
-//Old:
-//1. Написать функцию, которая определяет четное число или нет.
-func isOdd(val: Int) ->Bool  {
-    return (val % 2) == 0
-}
-let odd:Bool = isOdd(val: 5)
-print(odd)
-//2. Написать функцию, которая определяет, делится ли число без остатка на 3.
-func divizibleOn3(val: Int) ->Bool {
-    return (val % 3) == 0
-}
-let on3 = divizibleOn3(val: 15)
-print(on3)
-//3. Создать возрастающий массив из 100 чисел.
-var array:[Int] = []// = Array(repeating: 0, count: 100)
-var variable: Int = 0
-for _ in 1...100 {
-    variable += Int.random(in: 1...5)
-    array.append(variable)
-}
-print("возрастающий массив из 100 чисел")
-print(array)
-
-//Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
-for (index, item) in array.enumerated().reversed() {
-    if (isOdd(val:item) || divizibleOn3(val:item)) {
-        array.remove(at: index)
-    }
-}
-print("массив без чётных и делящихся на 3")
-print(array)
-
-//4. * Написать функцию, которая добавляет в массив новое число Фибоначчи и добавить при помощи нее 100 элементов:
-func addFibIntoArr(arr:[Int64]) ->[Int64] {
-    var outArr = arr
-    if arr.count > 1 {
-        outArr.append(arr.last! + arr[arr.count - 2])
-    } else {
-        outArr.append(1)
-    }
-    return outArr
-}
-
-var fibArr:[Int64] = []
-print(INT64_MAX)
-for _ in 0...80 {
-    fibArr = addFibIntoArr(arr: fibArr)
-}
-print(fibArr)
